@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="dangki.css">
+    <title>PS20569 - Bài 1 - Lab 8</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js">
+
+    </script>
+</head>
+<body ng-app="myApp" >
+    <div class="container">
+        <h2 class="title">ĐĂNG KÝ THÀNH VIÊN</h2>
+        <div class="form" >
+            <form name="frm" >
+                <label>Mã sinh viên</label><br>
+                <input name="masv" ng-model="masv" required class="form__input" type="text"><br>
+                <em ng-show="frm.masv.$invalid">Mã sinh viên không được để trống</em>
+                <br>
+                <label>Họ và tên</label><br>
+                <input name="name" ng-model="name" required class="form__input" type="text"><br>
+                <em ng-show="frm.name.$invalid">Tên sinh viên không được để trống</em><br>
+                <label>Email</label><br>
+                <input name="email" ng-model="email" required class="form__input" type="email"><br>
+                <em ng-show="frm.email.$invalid">Email sinh viên không được để trống</em><br>
+                <label>Giới tính</label><br>
+                <div class="sex" name="sex">
+                        <input type="radio" name="gender" ng-model="gender" value="male">
+                        <label>Nam</label>
+                        <input type="radio" name="gender" ng-model="gender" value="female">
+                        <label>Nữ</label>
+                </div>
+                <em ng-if="!gender">Vui lòng chọn giới tính</em><br>
+                <label>Sở thích</label>
+                <div  class="hobby"> 
+                    <input name="hobby" ng-model="ds" value="ds" type="checkbox">
+                    <label>Đọc sách</label>
+                    <input name="hobby" ng-model="dl" value="dl" type="checkbox">
+                    <label>Du lịch</label>
+                    <input name="hobby" ng-model="at" value="at" type="checkbox">
+                    <label>Ẩm thực</label>
+                    <input name="hobby" ng-model="an" value="an" type="checkbox">
+                    <label>Âm nhạc</label>
+                    <input name="hobby" ng-model="khac" value="khac" type="checkbox">
+                    <label>Khác</label>
+                </div>
+                <em ng-if="!ds && !dl && !at && !an && !khac">Vui lòng chọn ít nhất 1 sở thích</em><br>
+                <label>Quốc tịch</label><br>
+                <select ng-model="quoctich" name="quoctich">
+                    <option value=""></option>
+                    <option value="VN">Việt Nam</option>
+                    <option value="HQ">Hàn Quốc</option>
+                    <option value="NB">Nhật Bản</option>
+                    <option value="TL">Thái lan</option>
+                </select><br>
+                <em ng-if="!quoctich">Vui lòng chọn Quốc tịch</em><br>
+                <label>Ghi chú</label><br>
+                <textarea id="ghichu" cols="54" name="note" required ng-model="note" rows="5"></textarea><br>
+                <em ng-if="frm.note.$invalid">Ghi chú có kí tự từ 10 đến 250 kí tự</em><br>
+                <div class="submit__input" >
+                    <button type="button" id="dangky" ng-click="reset();" onclick="kiemtra()">Đăng Ký</button>    
+                </div>
+            </form>
+        </div>
+    </div>
+    <script>
+        var app = angular.module("myApp", []);
+        app.controller('hienthi', function($scope) {
+            $scope.reset = function(){
+            $scope.masv = "";
+            $scope.name = "";
+            $scope.email = "";
+            $scope.gender = "";
+            $scope.ds ="";
+            $scope.dl ="";
+            $scope.at ="";
+            $scope.an ="";
+            $scope.quoctich = "";
+            $scope.note = "";
+  }
+       $scope.reset();
+    });
+    function kiemtra() {
+        if(!kiemtramasv()) return ;
+        if (!kiemtraho()) return ;
+        if(!kiemtraEmail()) return ;
+        if(!kiemtragioitinh()) return ;
+        if(!kiemtraSoThich()) return ; 
+        if(!kiemtraQuoctich()) return ;
+        if(!kiemtraGhichu()) return ;
+        alert("Đăng kí thành công");
+    }
+    function kiemtramasv(){
+    var masv = document.forms["frm"]["masv"];
+    if (masv.value == "") {
+
+      alert("Mã sinh viên không được rỗng");
+      masv.focus();
+      return false;
+    }
+
+    return true;
+  }
+  function kiemtraho() {
+    var ho = document.forms["frm"]["name"];
+    if (ho.value == "") {
+
+      alert("Họ tên không được rỗng");
+      ho.focus();
+      return false;
+    }
+
+    return true;
+  }
+  function kiemtraEmail() {
+    var dt = document.forms["frm"]["email"];
+    if (dt.value == '') {
+      alert("Email không được rỗng");
+      dt.focus();
+      return false;
+    }
+    return true;
+  }
+  function kiemtragioitinh() {
+    var gioitinh = document.forms["frm"]["gender"];
+    if (!gioitinh[0].checked && !gioitinh[1].checked) {
+      alert("Chọn giới tính là nam hoặc là nữ");
+      gioitinh.focus();
+      return false;
+    }
+
+    return true;
+  }
+
+  function kiemtraSoThich() {
+    var sothich = document.forms["frm"]["hobby"];
+    for(var i = 0; i < sothich.length; i++){
+        if (sothich[i].checked) {
+            break;
+        }
+    }
+    if(i == sothich.length){
+        alert("Chọn ít nhất một sở thích");
+        sothich.focus();
+        return false
+    }
+    return true;
+}
+function kiemtraQuoctich() {
+  var quoctich = document.forms["frm"]["quoctich"];
+  if(quoctich.value == ''){
+      alert("Chọn quốc tịch");
+      quoctich.focus();
+      return false;
+  }
+  return true;
+}
+function kiemtraGhichu() {
+    var dt = document.forms["frm"]["note"];
+    if (dt.value > 5 || dt.value < 250) {
+      alert("Ghi chú không được rỗng");
+      dt.focus();
+      return false;
+    }
+    return true;
+  }
+    </script>
+</body>
+</html>

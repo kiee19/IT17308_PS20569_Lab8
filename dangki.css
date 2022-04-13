@@ -1,0 +1,61 @@
+.container {
+    margin:auto;
+    border: 1px solid #000;
+    background-color:rgb(241, 236, 236);
+    max-width: 700px;
+    border-radius: 6px;
+}
+.title {
+    text-align: center;
+}
+form {
+    margin: 0 20px;
+}
+input {
+    margin: 8px 0;
+}
+.form__input {
+    width: 100%;
+    border-radius: 6px;
+    border: 1px solid #000;
+    line-height:1.6;    
+}
+.sex,.hobby {
+    border-radius: 6px;
+    border: 1px solid #000;
+    padding: 0 25px;
+    margin: 8px 0;
+}
+.hobby>input {
+    margin-left: 40px;
+}
+select {
+    width: 100%;
+    font-size: 18px;
+    border-radius: 6px;
+    margin: 8px 0;
+}
+textarea {
+    width: 100%;
+    margin: 8px 0;
+}
+#dangky {
+    font-size:16px;
+    padding:8px 20px;
+    border-radius: 30px;
+    border: none;
+    background-color:deepskyblue;
+    color: #fff;
+    margin: 8px auto;
+
+}
+#dangky:hover {
+    cursor: pointer;
+}
+.submit__input {
+    text-align: center;
+}
+em {
+    color: red;
+    
+}
